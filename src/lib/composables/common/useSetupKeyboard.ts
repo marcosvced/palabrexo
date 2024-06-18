@@ -26,7 +26,7 @@ export const useSetupKeyboard = () => {
                 //     const toast = new Toast((<DataException>e).error.message, 'danger')
                 //     this.toastService.showAlert(toast)
                 // }
-                // throw e
+                throw e
             }
 
         }

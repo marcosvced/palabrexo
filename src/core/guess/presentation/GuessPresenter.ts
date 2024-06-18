@@ -37,7 +37,6 @@ export const GuessPresenter = (
             })
 
             gamePresenter.setGuesses(new Guess({result, word: state.value.word}))
-console.log('aka')
 
             if (result === new Array(WORD_LENGTH).fill(GuessLetterResult.VALID).join('')) {
                 gamePresenter.setStatus(GameStatus.WON)

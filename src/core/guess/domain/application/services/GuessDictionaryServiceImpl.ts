@@ -17,9 +17,11 @@ export class GuessDictionaryServiceImpl implements GuessDictionaryService {
     async checkIfWordIsInDictionary(word: string): Promise<boolean> {
 
         const {status} = await this.repository.search(word)
+
         if (ResponseStatus.NOT_FOUND === status) {
             throw GuessWordDoesntExistException(word)
         }
+
         return Promise.resolve(true)
     }
 

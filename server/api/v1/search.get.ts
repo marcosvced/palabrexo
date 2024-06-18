@@ -21,7 +21,16 @@ export default defineEventHandler(async (evt) => {
         "body": `_com_ideit_ragportal_liferay_dictionary_NormalSearchPortlet_fieldSearchNoun=${word}`,
         "method": "POST",
     })).json()
-    return items.map(({htmlContent}: { htmlContent: string }) => parseHTML(htmlContent))
+    const result = items.map(({htmlContent}: { htmlContent: string }) => parseHTML(htmlContent))
+
+    if (0 >= result.length) {
+        throw createError({
+            status: 404,
+            message: 'This word does not exist in the RAG',
+        })
+    }
+    return result
+
 })
 
 function parseHTML(raw: string) {
