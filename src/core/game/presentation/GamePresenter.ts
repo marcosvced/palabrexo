@@ -30,10 +30,12 @@ export const GamePresenter = (
 
     function setGuesses(guess: Guess) {
         const newState = state.value ?? new Game({})
-        newState.guesses.push(guess)
-        if (GameBoard.ROWS > newState.attempts) {
-            newState.attempts++
+        newState.attempts++
+        if (GameBoard.ROWS <= newState.attempts) {
+            setStatus(GameStatus.FINISHED)
+            return
         }
+        newState.guesses.push(guess)
         state.value = new Game(newState)
     }
 

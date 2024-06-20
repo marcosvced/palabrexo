@@ -1,19 +1,20 @@
 <script setup lang="ts">
 import {GuessLetterResult} from "~/src/core/guess/domain/entities/GuessLetterResult";
-import type {UnwrapRef} from "vue";
+
 interface Props {
   letter: string
   result: GuessLetterResult | undefined
   disabled?: boolean
 }
-const props:Props = withDefaults(defineProps<Props>(), {disabled: false})
 
-const setTileCssClass:UnwrapRef<Record<string, boolean>> = computed(()=>({
+const props: Props = withDefaults(defineProps<Props>(), {disabled: false})
+
+const setTileCssClass: ComputedRef<Record<string, boolean>> = computed((): Record<string, boolean> => ({
   'has-letter': !!props.letter,
-  'reveled reveled-invalid': parseInt(props.result) === GuessLetterResult.INVALID,
-  'reveled reveled-invalid-place': parseInt(props.result) === GuessLetterResult.INVALID_PLACE,
-  'reveled reveled-valid': parseInt(props.result) === GuessLetterResult.VALID,
-  'is-disabled': props.disabled
+  'reveled reveled-invalid': props.result == GuessLetterResult.INVALID,
+  'reveled reveled-invalid-place': props.result == GuessLetterResult.INVALID_PLACE,
+  'reveled reveled-valid': props.result == GuessLetterResult.VALID,
+  'is-disabled': !!props.disabled
 }))
 
 </script>

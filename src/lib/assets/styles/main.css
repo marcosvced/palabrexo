@@ -6,6 +6,8 @@
 @import "_generic/reset.css";
 @import "_generic/body.css";
 
+@import "_elements/paragraphs.css";
+
 @import "_trumps/palette.css";
 
 

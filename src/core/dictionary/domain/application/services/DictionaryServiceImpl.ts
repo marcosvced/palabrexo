@@ -2,11 +2,8 @@ import type {DictionaryService} from "~/src/core/dictionary/domain/application/s
 import {Dictionary} from "~/src/core/dictionary/domain/entities/Dictionary";
 
 export class DictionaryServiceImpl implements DictionaryService {
-  private readonly dictionary: Dictionary
 
-  constructor() {
-    this.dictionary = new Dictionary('gl')
-  }
+  constructor(private readonly dictionary:Dictionary) {}
 
 
   getAlphabet(): string[] {

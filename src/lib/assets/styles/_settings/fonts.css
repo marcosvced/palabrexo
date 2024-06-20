@@ -2,6 +2,7 @@
 :root {
   --ff-arcade: "Press Start 2P", system-ui;
   --fs-medium: clamp(var(--s-12px), 1.5vw, var(--s-16px));
+  --fs-large: clamp(var(--s-16px), 1.8vw, var(--s-20px));
 }
 
 

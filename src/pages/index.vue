@@ -1,18 +1,16 @@
 <script lang="ts" setup>
-import {useGamePresenter} from "~/src/lib/composables/common/useGamePresenter";
-import {useGuessPresenter} from "~/src/lib/composables/common/useGuessPresenter";
-import {useSetupKeyboard} from "~/src/lib/composables/common/useSetupKeyboard";
 import MBoard from "~/src/lib/ui/molecules/board/m-board.vue";
 import MKeyboard from "~/src/lib/ui/molecules/keyboard/m-keyboard.vue";
+import {GameStatus} from "~/src/core/game/domain/entities/GameStatus";
+import OnGameWonDialog from "~/src/pages/components/OnGameWonDialog.vue";
+import {useGame} from "~/src/pages/composables/useGame";
+import {useDefinitions} from "~/src/pages/composables/useDefinitions";
+import {useGuess} from "~/src/pages/composables/useGuess";
+import {useSetupKeyboard} from "~/src/lib/composables/common/useSetupKeyboard";
 
-const gamePresenter = useGamePresenter()
-const {state: game} = storeToRefs(gamePresenter)
-
-const guessPresenter = useGuessPresenter()
-const {state: guess} = storeToRefs(guessPresenter)
-
-await useAsyncData(() => gamePresenter.start().then(() => true))
-
+const {game, isGameFinished} = await useGame()
+const {definitions} = await useDefinitions(game.value?.wordToGuess ?? '')
+const {guess} = useGuess()
 
 useSetupKeyboard()
 
@@ -22,15 +20,19 @@ useSetupKeyboard()
   <main class="main">
     <div class="container">
       <m-board :board="{
-        guesses: game.guesses ?? [],
-        attempts: game?.attempts,
-        status: game?.status,
-        guess: guess?.word
+        guesses: game?.guesses ?? [],
+        attempts: game?.attempts ?? 0,
+        status: game?.status ?? GameStatus.FINISHED,
+        guess: guess?.word ?? ''
       }"/>
     </div>
     <div class="container -bg-tone-100">
       <m-keyboard :used-guesses="game?.guesses ?? []"/>
     </div>
+    <on-game-won-dialog
+        :status="game?.status ?? GameStatus.FINISHED"
+        v-if="isGameFinished"
+        :definitions="definitions ?? []"/>
   </main>
 </template>
 

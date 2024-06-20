@@ -2,7 +2,7 @@ import {Container} from "~/src/core/common/dependencies/Container";
 import {useGamePresenter} from "~/src/lib/composables/common/useGamePresenter";
 import {ApiClientImpl} from "~/src/core/common/infrastructure/ApiClientImpl";
 import {useGuessPresenter} from "~/src/lib/composables/common/useGuessPresenter";
-import {useDictionaryProvider} from "~/src/core/dictionary/infrastructure/di/useDictionaryProvider";
+import {useDictionaryPresenter} from "~/src/lib/composables/common/useDictionaryPresenter";
 import * as devalue from "devalue";
 
 export default defineNuxtPlugin((nuxt) => {
@@ -10,7 +10,7 @@ export default defineNuxtPlugin((nuxt) => {
 
     // container.bind('GamePresenter', useGamePresenter(new ApiClientImpl('http://localhost:3000/api/v1')))
     // container.bind('GuessPresenter', useGuessPresenter(new ApiClientImpl('http://localhost:3000/api/v1')))
-    container.bind('DictionaryPresenter', useDictionaryProvider())
+    container.bind('DictionaryPresenter', useDictionaryPresenter())
 
     return {
         provide: {

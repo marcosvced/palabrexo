@@ -1,5 +1,7 @@
 import type {ApiClient} from "~/src/core/common/infrastructure/ApiClient";
 import type {ApiResponse} from "~/src/core/common/domain/entities/ApiResponse";
+import {useEither} from "~/src/core/common/domain/entities/Either";
+import {ResponseStatus} from "~/src/core/common/domain/entities/ResponseStatus";
 
 export class ApiClientImpl implements ApiClient {
 
@@ -29,12 +31,22 @@ export class ApiClientImpl implements ApiClient {
 }
 
 async function doFetch<T>(url: string, options = {}): Promise<ApiResponse<T>> {
+
     const response = await fetch(url, options)
     const data = await response.json()
-    return {
+    if (!response.ok) {
+        return useEither.left({
+            status: data.statusCode,
+            message: data.message
+        })
+    }
+
+    return useEither.right({
         status: response.status,
         data
-    }
+    })
+
+
 }
 
 function createUrlWithParams(url: string, params?: any) {

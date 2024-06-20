@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type {UnwrapRef} from "vue";
+import AButton from "~/src/lib/ui/atoms/button/a-button.vue";
 
 const props = withDefaults(defineProps<{
   letter: string
@@ -13,51 +14,12 @@ const setKeyCssClass: UnwrapRef<Record<string, boolean>> = reactive({
 </script>
 
 <template>
-  <button type="button" class="key" :class="setKeyCssClass" :disabled="!isActive">
+  <a-button class="a-key" :class="setKeyCssClass" :disabled="!isActive">
     {{ letter }}
-  </button>
-
+  </a-button>
 </template>
 
 <style scoped lang="css">
-.key {
-  font-size: inherit;
-  font-family: inherit;
-  line-height: 1;
-  color: inherit;
-  text-transform: uppercase;
-
-  user-select: none;
-  cursor: pointer;
-
-  background-color: var(--c-primary);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  padding: var(--s-16px);
-
-  border: 0;
-  border-radius: calc(calc(6 / 16) * 1rem);
-
-  transition: background-color  0.2s ease-in-out, color 0.2s ease-in-out;
+.a-key {
 }
-
-
-.key:hover {
-  background-color: var(--c-shade-100);
-  color: var(--c-primary);
-}
-
-.key:active{
-  background-color: var(--c-shade-200);
-}
-
-.key[disabled] {
-  background-color: var(--c-tone-100);
-  color: var(--c-primary);
-  pointer-events: none;
-}
-
 </style>

@@ -1,27 +1,35 @@
-import {Ploc} from "~/src/core/common/presentation/Ploc";
-import type {Dictionary} from "~/src/core/dictionary/domain/entities/Dictionary";
 import type {GetAlphabetUseCase} from "~/src/core/dictionary/domain/application/actions/GetAlphabetUseCase";
 import type {GetLetterPerRowsUseCase} from "~/src/core/dictionary/domain/application/actions/GetLetterPerRowsUseCase";
+import type {GuessWord} from "~/src/core/guess/domain/entities/GuessWord";
+import type {DictionarySearchUseCase} from "~/src/core/dictionary/domain/application/actions/DictionarySearchUseCase";
+import type {DictionaryDefinition} from "~/src/core/dictionary/domain/entities/DictionaryDefinition";
 
-export class DictionaryPresenter extends Ploc<Dictionary> {
-    constructor(
-        private readonly getAlphabetUseCase:  GetAlphabetUseCase,
-        private readonly getLetterPerRowsUseCase:  GetLetterPerRowsUseCase,
-    ) {
-        super()
+
+export const DictionaryPresenter = (
+    getAlphabetUseCase: GetAlphabetUseCase,
+    getLetterPerRowsUseCase: GetLetterPerRowsUseCase,
+    searchUseCase: DictionarySearchUseCase
+) => defineStore('DictionaryPresenter', () => {
+
+    const state: Ref<DictionaryDefinition[] | undefined> = ref()
+
+    async function getAlphabet() {
+        return await getAlphabetUseCase.execute()
     }
 
-    getAlphabet () {
-        return this.getAlphabetUseCase.execute()
+    async function getLetterPerRows() {
+        return await getLetterPerRowsUseCase.execute()
     }
 
-    getLetterPerRows () {
-        return this.getLetterPerRowsUseCase.execute()
+    async function search(word: GuessWord) {
+        state.value = await searchUseCase.execute(word)
+
     }
 
-    toJSON() {
-        const json:Record<string, any> = {}
-        Object.entries(this).forEach(([key, value]) => json[key] = value)
-        return json
+    return {
+        state,
+        getAlphabet,
+        getLetterPerRows,
+        search
     }
-}
+})()

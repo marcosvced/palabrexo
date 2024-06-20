@@ -1,37 +1,40 @@
 <script setup lang="ts">
 import AKey from "~/src/lib/ui/atoms/key/a-key.vue";
-import type {UseDictionaryProvider} from "~/src/core/dictionary/infrastructure/di/useDictionaryProvider";
-import {Container} from "~/src/core/common/dependencies/Container";
+
 import {SpecialKeys} from "~/src/core/dictionary/domain/entities/SpecialKeys";
 import {normalizeWord} from "~/src/core/common/helpers/normalizeWord";
-import type {DictionaryPresenter} from "~/src/core/dictionary/presentation/DictionaryPresenter";
 import type {Guess} from "~/src/core/guess/domain/entities/GuessModel";
+import {useDictionaryPresenter} from "~/src/lib/composables/common/useDictionaryPresenter";
 
 
-const props = withDefaults(defineProps<{ usedGuesses: string[] }>(), {})
+const props = withDefaults(defineProps<{ usedGuesses: Guess[] }>(), {})
 
-const {$container}: { $container: Container } = useNuxtApp()
-const dictionaryPresenter: DictionaryPresenter = $container.get<UseDictionaryProvider>("DictionaryPresenter")
+
+const dictionaryPresenter = useDictionaryPresenter()
 
 let keyboard: string[][] = [[]]
 let alphabet: string[] = []
 const invalidKeys = computed(() => {
-  const invalid = []
+  const invalid: string[] = []
   props.usedGuesses.forEach(({word, result}: Guess) => {
+    if (!word) {
+      return
+    }
+
     for (let i = 0; i < word.length; i++) {
-      const letter = word[i]
-      if ('0' === result[i]) {
-        if (!invalid.includes(letter)) {
-          invalid.push(letter)
-        }
+      const letter = word[i] ?? ''
+      if ('0' === result?.[i] && !invalid.includes(letter)) {
+        invalid.push(letter)
+      } else if ('0' !== result?.[i] && invalid.includes(letter)) {
+        invalid.splice(invalid.indexOf(letter), 1)
       }
     }
   })
   return invalid
 })
 
-const letters = dictionaryPresenter.getAlphabet()
-const letterPerRow = dictionaryPresenter.getLetterPerRows()
+const letters = await dictionaryPresenter.getAlphabet()
+const letterPerRow = await dictionaryPresenter.getLetterPerRows()
 
 keyboard = letters.reduce((a, c, index) => {
   if (0 === index % letterPerRow) {
@@ -45,7 +48,7 @@ keyboard.push(SpecialKeys.map((key) => key.value))
 
 
 const emulateKeyboardEvent = (key: string) => {
-  if (invalidKeys.includes(normalizeWord(key)) || !this.alphabet.includes(normalizeWord(key))) {
+  if (invalidKeys.value.includes(normalizeWord(key)) || !alphabet.includes(normalizeWord(key))) {
     return
   }
   const keyboardEventInit = {

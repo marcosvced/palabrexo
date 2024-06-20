@@ -9,6 +9,7 @@ export function Serialize() {
 
         const newConstructor: any = function(...args: any[]) {
             const instance = new constructor(...args);
+            // @ts-ignore
             instance.__key = className;
             return instance;
         };

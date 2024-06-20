@@ -15,11 +15,11 @@ export interface GuessModel {
 @Serialize()
 export class Guess implements GuessModel {
     result?: string
-    word?: GuessWord
+    word: GuessWord
 
     constructor({result, word}: GuessModel) {
         this.result = result
-        this.word = word
+        this.word = word ?? ''
     }
 
     ensureGuessIsValid() {

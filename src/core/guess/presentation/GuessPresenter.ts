@@ -18,15 +18,17 @@ export const GuessPresenter = (
     submitGuessUseCase: SubmitGuessUseCase,
     checkInDictionaryUseCase: CheckGuessWordIsInDictionaryUseCase
 ) => defineStore('GuessPresenter', () => {
+
     const gamePresenter = useGamePresenter()
     const {state: game} = storeToRefs(gamePresenter)
     const state: Ref<Guess | undefined> = ref()
 
     async function submit() {
-        state.value?.ensureGuessIsValid()
-
-        game.value?.ensureGameIsValid()
-        game.value?.ensureWordHasNotBeenUsed(state.value.word)
+        if (!state.value || !game.value) {
+            return
+        }
+        state.value.ensureGuessIsValid()
+        game.value.ensureWordHasNotBeenUsed(state.value.word)
 
         try {
             // TODO: add this method to DictionaryPresenter

@@ -1,5 +1,6 @@
 :root {
   /* base 4px sizes */
+  --s-2px: calc(calc(2 / 16) * 1em);
   --s-4px: calc(calc(4 / 16) * 1em);
   --s-8px: calc(calc(8 / 16) * 1em);
   --s-12px: calc(calc(12 / 16) * 1em);
