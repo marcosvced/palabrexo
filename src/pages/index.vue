@@ -15,9 +15,6 @@ const {guess} = useGuess()
 
 useSetupKeyboard()
 
-const onNewGame = async () => {
-  await restart()
-}
 </script>
 <template>
   <main class="main">
@@ -36,7 +33,7 @@ const onNewGame = async () => {
         :status="game?.status ?? GameStatus.FINISHED"
         v-if="isGameFinished"
         :definitions="definitions ?? []"
-        @new-game="onNewGame"
+        @new-game="async ()=> await restart()"
     />
     <m-snackbar/>
   </main>
