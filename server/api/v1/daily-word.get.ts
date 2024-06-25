@@ -1,9 +1,9 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
-
+import data from '~/server/static/gl/gl.json'
 export default defineEventHandler(async () => {
-    const dir = path.join(process.cwd(),  "server/static/gl/gl.json");
-    const data = JSON.parse(await fs.promises.readFile(dir, 'utf8'))
+    // const dir = path.join(process.cwd(),  "/server/static/gl/gl.json");
+    // const data = JSON.parse(await fs.promises.readFile(dir, 'utf8'))
     const randomIndex = Math.floor(Math.random() * (data.length - 0 + 1))
     return {
         word: data[randomIndex]
