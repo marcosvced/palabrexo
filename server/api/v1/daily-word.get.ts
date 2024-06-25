@@ -1,6 +1,6 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
-import data from '~/server/static/gl/gl.json'
+import data from '../../static/gl/gl.json'
 export default defineEventHandler(async () => {
     // const dir = path.join(process.cwd(),  "/server/static/gl/gl.json");
     // const data = JSON.parse(await fs.promises.readFile(dir, 'utf8'))
