@@ -13,30 +13,24 @@ export default defineEventHandler(async (evt) => {
     url.searchParams.set('_com_ideit_ragportal_liferay_dictionary_NormalSearchPortlet_cmd', 'cmdNormalSearch')
     url.searchParams.set('_com_ideit_ragportal_liferay_dictionary_NormalSearchPortlet_renderMode', 'load')
 
-    //  const {items} = await (await fetch(url, {
-    //      "headers": {
-    //          "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-    //          "x-requested-with": "XMLHttpRequest"
-    //      },
-    //      "body": `_com_ideit_ragportal_liferay_dictionary_NormalSearchPortlet_fieldSearchNoun=${word}`,
-    //      "method": "POST",
-    //  })).json()
-//const result = items.map(({htmlContent}: { htmlContent: string }) => parseHTML(htmlContent))
+    const {items} = await (await fetch(url, {
+        "headers": {
+            "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+            "x-requested-with": "XMLHttpRequest"
+        },
+        "body": `_com_ideit_ragportal_liferay_dictionary_NormalSearchPortlet_fieldSearchNoun=${word}`,
+        "method": "POST",
+    })).json()
+    const result = items.map(({htmlContent}: { htmlContent: string }) => parseHTML(htmlContent))
 
-    // if (0 >= result.length) {
-    //       throw createError({
-    //        status: 404,
-    //       message: 'This word does not exist in the RAG',
-    //  })
-    //}
-    // return result
-    return {
-        lemma: 'Lorem ipsum',
-        partOfSpeech: 'Lorem ipsum',
-        definition: 'Lorem ipsum',
-        example: 'Lorem ipsum',
-        synonym: 'Lorem ipsum'
+    if (0 >= result.length) {
+          throw createError({
+           status: 404,
+          message: 'This word does not exist in the RAG',
+     })
     }
+    return result
+
 
 })
 

@@ -7,14 +7,17 @@ import {useGame} from "~/src/pages/composables/useGame";
 import {useDefinitions} from "~/src/pages/composables/useDefinitions";
 import {useGuess} from "~/src/pages/composables/useGuess";
 import {useSetupKeyboard} from "~/src/lib/composables/common/useSetupKeyboard";
+import MSnackbar from "~/src/lib/ui/molecules/snackbar/m-snackbar.vue";
 
-const {game, isGameFinished} = await useGame()
-const {definitions} = await useDefinitions(game.value?.wordToGuess ?? '')
+const {game, restart, isGameFinished} = await useGame()
+const {definitions} = await useDefinitions(game)
 const {guess} = useGuess()
 
 useSetupKeyboard()
 
-
+const onNewGame = async () => {
+  await restart()
+}
 </script>
 <template>
   <main class="main">
@@ -32,7 +35,10 @@ useSetupKeyboard()
     <on-game-won-dialog
         :status="game?.status ?? GameStatus.FINISHED"
         v-if="isGameFinished"
-        :definitions="definitions ?? []"/>
+        :definitions="definitions ?? []"
+        @new-game="onNewGame"
+    />
+    <m-snackbar/>
   </main>
 </template>
 

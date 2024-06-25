@@ -21,6 +21,11 @@ export const GamePresenter = (
         }
     }
 
+    async function restart() {
+        state.value = undefined
+        await start()
+    }
+
     function setStatus(status: GameStatus) {
         const newState = state.value ?? new Game({})
         newState.status = status
@@ -42,6 +47,7 @@ export const GamePresenter = (
     return {
         state,
         start,
+        restart,
         setGuesses,
         setStatus
     }

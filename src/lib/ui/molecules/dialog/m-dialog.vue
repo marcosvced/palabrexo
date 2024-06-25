@@ -5,18 +5,21 @@ import AButton from "~/src/lib/ui/atoms/button/a-button.vue";
 
 <template>
   <teleport to="body">
-    <div class="overlay" />
+    <div class="overlay"/>
     <dialog class="m-dialog">
       <div class="m-dialog__header">
         <h2>
           <slot name="title"/>
         </h2>
         <a-button class="header__close">
-          <span class="close__icon" />
+          <span class="close__icon"/>
         </a-button>
       </div>
       <div class="m-dialog__content">
         <slot name="body"/>
+      </div>
+      <div class="m-dialog__footer">
+        <slot name="footer"/>
       </div>
     </dialog>
   </teleport>
@@ -31,6 +34,7 @@ import AButton from "~/src/lib/ui/atoms/button/a-button.vue";
   left: 0;
   z-index: 0;
 }
+
 dialog {
   position: fixed;
   display: block;
@@ -50,6 +54,7 @@ dialog {
   padding-inline: var(--s-28px);
   padding-block: var(--s-16px);
 }
+
 .m-dialog__content {
   padding-block: var(--s-32px);
 }
@@ -77,5 +82,10 @@ dialog {
 h2 {
   margin: 0;
   font-size: var(--fs-large);
+}
+
+.m-dialog__footer {
+  padding-inline: var(--s-28px);
+  padding-bottom: var(--s-28px);
 }
 </style>
