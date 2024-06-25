@@ -48,7 +48,12 @@ keyboard.push(SpecialKeys.map((key) => key.value))
 
 
 const emulateKeyboardEvent = (key: string) => {
-  if (invalidKeys.value.includes(normalizeWord(key)) || !alphabet.includes(normalizeWord(key))) {
+  if (
+      invalidKeys.value.includes(normalizeWord(key))
+      || (
+          !alphabet.includes(normalizeWord(key))
+          && !SpecialKeys.some((sk) => normalizeWord(key) === sk.value))
+  ) {
     return
   }
   const keyboardEventInit = {
@@ -79,12 +84,22 @@ const emulateKeyboardEvent = (key: string) => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--s-16px);
-  font-size: clamp(.7em, 2vw, 1em);
+  gap: var(--s-8px);
 }
+
 
 .row {
   display: flex;
-  gap: var(--s-16px);
+  gap: var(--s-4px);
+}
+
+@media (min-width: 764px) {
+  .keyboard {
+    gap: var(--s-16px);
+  }
+
+  .row {
+    gap: var(--s-16px);
+  }
 }
 </style>

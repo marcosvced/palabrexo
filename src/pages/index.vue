@@ -42,9 +42,16 @@ useSetupKeyboard()
 <style lang="css" scoped>
 .main {
   display: grid;
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-rows: 1.25fr .75fr;
   height: 100%;
   align-items: center;
+}
+
+@media (min-width: 764px) {
+  .main {
+    grid-template-rows: repeat(2, 1fr);
+  }
+
 }
 
 .container {

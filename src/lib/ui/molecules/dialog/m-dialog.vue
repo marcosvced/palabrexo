@@ -46,7 +46,14 @@ dialog {
   color: var(--c-shade-200);
   padding: 0;
   z-index: 100;
-  width: 50dvw;
+  width: 95%;
+}
+
+@media (min-width: 764px) {
+  dialog {
+    width: 50dvw;
+  }
+
 }
 
 .m-dialog__header,
@@ -69,6 +76,7 @@ dialog {
 
 .header__close {
   margin-right: calc(calc(var(--s-28px) / 2) * -1);
+  opacity: 0;
 }
 
 .close__icon {
