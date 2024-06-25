@@ -1,7 +1,12 @@
 import {VALID_CHARACTERS, WORD_LENGTH} from "~/src/core/guess/domain/entities/GuessWord";
 import {useGuessPresenter} from "~/src/lib/composables/common/useGuessPresenter";
+import {SPECIAL_KEYS, SpecialKeys} from "~/src/core/dictionary/domain/entities/SpecialKeys";
+import {useAlertsPresenter} from "~/src/lib/composables/common/useAlertsPresenter";
+import {AlertKind} from "~/src/core/alert/domain/entities/AlertKind";
 
 export const useSetupKeyboard = () => {
+
+    const alertPresenter = useAlertsPresenter()
 
     const guessPresenter = useGuessPresenter()
     const {state: guess} = storeToRefs(guessPresenter)
@@ -12,28 +17,20 @@ export const useSetupKeyboard = () => {
         }
 
         const key = evt.key
-        if ('Backspace' === key) {
+        if (SPECIAL_KEYS.DELETE === key) {
             guessPresenter.setWord((guess.value?.word ?? '').slice(0, -1))
             return
         }
-        if ('Enter' === key) {
-            try {
-                await guessPresenter.submit()
-                return
-            } catch (e) {
-                // TODO: Show alert to user
-                // if ((<DataException>e).kind) {
-                //     const toast = new Toast((<DataException>e).error.message, 'danger')
-                //     this.toastService.showAlert(toast)
-                // }
-                throw e
-            }
-
+        if (SPECIAL_KEYS.ENTER === key) {
+            await guessPresenter.submit()
+            return
         }
+
         if (VALID_CHARACTERS.test(key)) {
             if (WORD_LENGTH <= (guess.value?.word?.length ?? 0)) {
                 return
             }
+
             guessPresenter.setWord((guess.value?.word ?? '').concat(key))
         } else {
             evt.preventDefault()

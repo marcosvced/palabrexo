@@ -34,6 +34,7 @@ export const GuessPresenter = (
         if (!state.value || !game.value) {
             return
         }
+
         state.value.ensureGuessIsValid()
         game.value.ensureWordHasNotBeenUsed(state.value.word)
 
