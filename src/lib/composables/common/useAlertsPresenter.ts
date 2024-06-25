@@ -1,0 +1,17 @@
+import {AlertsPresenter} from "~/src/core/alert/presentation/AlertsPresenter";
+import {AlertServiceImpl} from "~/src/core/alert/domain/application/service/AlertServiceImpl";
+import {NewSuccessAlertUseCase} from "~/src/core/alert/domain/application/actions/NewSuccessAlertUseCase";
+import {NewInfoAlertUseCase} from "~/src/core/alert/domain/application/actions/NewInfoAlertUseCase";
+import {NewErrorAlertUseCase} from "~/src/core/alert/domain/application/actions/NewErrorAlertUseCase";
+
+export const useAlertsPresenter = () => {
+    const service = new AlertServiceImpl()
+    const successAlertUseCase = new NewSuccessAlertUseCase(service)
+    const infoAlertUseCase = new NewInfoAlertUseCase(service)
+    const errorAlertUseCase = new NewErrorAlertUseCase(service)
+    return AlertsPresenter(
+        successAlertUseCase,
+        infoAlertUseCase,
+        errorAlertUseCase
+    )
+}

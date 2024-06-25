@@ -1,0 +1,19 @@
+/* palette */
+:root {
+  --c-ash: #222021;
+
+  --c-primary: #C4D0A2;
+  --c-tone-100: #8B966E;
+  --c-shade-100: #4E533C;
+  --c-shade-200: var(--c-ash);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* dark palette */
+    --c-primary: #5b6146;
+    --c-tone-100: #2e2b2d;
+    --c-shade-100: #8B966E;
+    --c-shade-200: #aeb88f;
+  }
+}
