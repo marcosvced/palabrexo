@@ -6,7 +6,9 @@ import {ApiClientImpl} from "~/src/core/common/infrastructure/ApiClientImpl";
 
 
 export const useGamePresenter = () => {
-    const apiClient = new ApiClientImpl('http://localhost:3000/api/v1')
+    const {public: {API_BASE_URL}} = useRuntimeConfig()
+
+    const apiClient = new ApiClientImpl(API_BASE_URL)
     const gameMapper = new GameMapper()
     const gameRepository = new GameRepositoryImpl(apiClient, gameMapper)
 

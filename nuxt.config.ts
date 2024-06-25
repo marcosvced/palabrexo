@@ -17,5 +17,10 @@ export default defineNuxtConfig({
   dir: {
     pages: './src/pages/',
     plugins: './src/lib/plugins'
+  },
+  runtimeConfig: {
+    public: {
+      API_BASE_URL: process.env.API_BASE_URL,
+    }
   }
 })

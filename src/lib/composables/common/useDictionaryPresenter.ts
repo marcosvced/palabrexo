@@ -13,8 +13,9 @@ import {DictionaryDefinitionMapper} from "~/src/core/dictionary/infrastructure/m
 
 
 export const useDictionaryPresenter = () => {
+    const {public: {API_BASE_URL}} = useRuntimeConfig()
     const repository: DictionaryRepository = new DictionaryRepositoryImpl(
-        new ApiClientImpl("http://localhost:3000/api/v1"),
+        new ApiClientImpl(API_BASE_URL),
         new DictionaryDefinitionMapper()
     )
     const service: DictionaryServiceImpl = new DictionaryServiceImpl(new Dictionary('gl'))
