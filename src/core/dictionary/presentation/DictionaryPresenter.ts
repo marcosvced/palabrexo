@@ -15,7 +15,7 @@ export class DictionaryPresenter extends Presenter {
         private readonly searchUseCase: DictionarySearchUseCase
     ) {
         super()
-        this.defineStore(this.constructor.name)
+        this.defineStore('DictionaryPresenter')
     }
 
     defineStore(key: string): any {

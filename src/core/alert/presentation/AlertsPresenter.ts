@@ -14,7 +14,7 @@ export class AlertsPresenter extends Presenter {
         private readonly newErrorAlertUseCase: NewErrorAlertUseCase,
     ) {
         super();
-        this.defineStore(this.constructor.name)
+        this.defineStore('AlertsPresenter')
     }
 
     defineStore(key: string): any {

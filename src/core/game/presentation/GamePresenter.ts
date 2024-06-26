@@ -14,7 +14,7 @@ export class GamePresenter extends Presenter {
         private readonly startGameUseCase: StartGameUseCase,
     ) {
         super()
-        this.defineStore(this.constructor.name)
+        this.defineStore('GamePresenter')
     }
 
     defineStore(key: string): any {
