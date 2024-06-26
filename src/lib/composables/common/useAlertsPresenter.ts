@@ -9,9 +9,10 @@ export const useAlertsPresenter = () => {
     const successAlertUseCase = new NewSuccessAlertUseCase(service)
     const infoAlertUseCase = new NewInfoAlertUseCase(service)
     const errorAlertUseCase = new NewErrorAlertUseCase(service)
-    return AlertsPresenter(
+    const presenter = new AlertsPresenter(
         successAlertUseCase,
         infoAlertUseCase,
         errorAlertUseCase
     )
+    return presenter.store
 }
