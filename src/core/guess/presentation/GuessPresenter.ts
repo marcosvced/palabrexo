@@ -24,7 +24,7 @@ export class GuessPresenter extends Presenter {
         private readonly checkInDictionaryUseCase: CheckGuessWordIsInDictionaryUseCase
     ) {
         super()
-        this.defineStore(this.constructor.name)
+        this.defineStore('GuessPresenter')
     }
 
     defineStore(key: string): any {
