@@ -13,7 +13,8 @@ export const useGamePresenter = () => {
     const gameRepository = new GameRepositoryImpl(apiClient, gameMapper)
 
 
-    return GamePresenter(
+    const presenter = new GamePresenter(
         new StartGameUseCase(gameRepository),
     )
+    return presenter.store
 }

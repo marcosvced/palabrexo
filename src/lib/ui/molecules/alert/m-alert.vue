@@ -6,8 +6,7 @@ withDefaults(defineProps<{ alert: AlertModel }>(), {})
 
 <template>
   <div class="m-alert">
-    <span class="alert__icon"> {{ alert.id }} </span>
-    <span class="alert__icon"> {{ alert.icon }} </span>
+<!--    <span class="alert__icon"> {{ alert.icon }} </span>-->
     <h2 class="alert__title"> {{ alert.title }} </h2>
     <div class="alert__body">
       <p v-for="paragraph in alert.body">

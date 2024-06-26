@@ -1,6 +1,4 @@
-import {
-    DictionaryRepositoryImpl
-} from "~/src/core/dictionary/infrastructure/repositories/DictionaryRepositoryImpl";
+import {DictionaryRepositoryImpl} from "~/src/core/dictionary/infrastructure/repositories/DictionaryRepositoryImpl";
 import {GuessServiceImpl} from "~/src/core/guess/domain/application/services/GuessServiceImpl";
 import {SubmitGuessUseCase} from "~/src/core/guess/domain/application/actions/SubmitGuessUseCase";
 import {
@@ -17,8 +15,11 @@ export const useGuessPresenter = () => {
     const dictionaryRepositoryImpl = new DictionaryRepositoryImpl(apiClient)
     const guessServiceImpl = new GuessServiceImpl(dictionaryRepositoryImpl)
 
-    return GuessPresenter(
+    const presenter = new GuessPresenter(
         new SubmitGuessUseCase(guessServiceImpl),
         new CheckGuessWordIsInDictionaryUseCase(guessServiceImpl)
     )
+
+    return presenter.store
+
 }

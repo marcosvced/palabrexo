@@ -3,33 +3,46 @@ import type {GetLetterPerRowsUseCase} from "~/src/core/dictionary/domain/applica
 import type {GuessWord} from "~/src/core/guess/domain/entities/GuessWord";
 import type {DictionarySearchUseCase} from "~/src/core/dictionary/domain/application/actions/DictionarySearchUseCase";
 import type {DictionaryDefinition} from "~/src/core/dictionary/domain/entities/DictionaryDefinition";
+import {Presenter} from "~/src/core/common/presentation/Presenter";
+import type {Ref} from "vue";
 
 
-export const DictionaryPresenter = (
-    getAlphabetUseCase: GetAlphabetUseCase,
-    getLetterPerRowsUseCase: GetLetterPerRowsUseCase,
-    searchUseCase: DictionarySearchUseCase
-) => defineStore('DictionaryPresenter', () => {
+export class DictionaryPresenter extends Presenter {
 
-    const state: Ref<DictionaryDefinition[] | undefined> = ref()
-
-    async function getAlphabet() {
-        return await getAlphabetUseCase.execute()
+    constructor(
+        private readonly getAlphabetUseCase: GetAlphabetUseCase,
+        private readonly getLetterPerRowsUseCase: GetLetterPerRowsUseCase,
+        private readonly searchUseCase: DictionarySearchUseCase
+    ) {
+        super()
+        this.defineStore(this.constructor.name)
     }
 
-    async function getLetterPerRows() {
-        return await getLetterPerRowsUseCase.execute()
+    defineStore(key: string): any {
+        this.store = defineStore(key, () => {
+
+            const state: Ref<DictionaryDefinition[] | undefined> = ref()
+
+            const getAlphabet = async ()  => {
+                return await this.getAlphabetUseCase.execute()
+            }
+
+            const getLetterPerRows = async ()  => {
+                return await this.getLetterPerRowsUseCase.execute()
+            }
+
+            const search = async (word: GuessWord)  => {
+                state.value = await this.searchUseCase.execute(word)
+
+            }
+
+            return {
+                state,
+                getAlphabet,
+                getLetterPerRows,
+                search
+            }
+        })
     }
 
-    async function search(word: GuessWord) {
-        state.value = await searchUseCase.execute(word)
-
-    }
-
-    return {
-        state,
-        getAlphabet,
-        getLetterPerRows,
-        search
-    }
-})()
+}

@@ -24,9 +24,11 @@ export const useDictionaryPresenter = () => {
     const getLetterPerRowsUseCase = new GetLetterPerRowsUseCase(service)
     const searchUseCase = new DictionarySearchUseCase(repository)
 
-    return DictionaryPresenter(
+    const presenter = new DictionaryPresenter(
         getAlphabetUseCase,
         getLetterPerRowsUseCase,
         searchUseCase
     )
+
+    return presenter.store
 }
