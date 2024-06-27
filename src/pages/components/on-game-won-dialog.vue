@@ -71,6 +71,9 @@ span {
 .content {
   background-color: rgba(255, 255, 255, 0.03);
   padding: var(--s-24px);
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100%;
 }
 
 

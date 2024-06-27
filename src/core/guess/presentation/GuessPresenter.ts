@@ -8,7 +8,7 @@ import type {
     CheckGuessWordIsInDictionaryUseCase
 } from "~/src/core/guess/domain/application/actions/CheckGuessWordIsInDictionaryUseCase";
 import type {GuessResult} from "~/src/core/guess/domain/entities/GuessResult";
-import { GuessWordException, WORD_LENGTH} from "~/src/core/guess/domain/entities/GuessWord";
+import {GuessWordException, WORD_LENGTH} from "~/src/core/guess/domain/entities/GuessWord";
 import {GuessLetterResult} from "~/src/core/guess/domain/entities/GuessLetterResult";
 import {GameStatus} from "~/src/core/game/domain/entities/GameStatus";
 import {normalizeWord} from "~/src/core/common/helpers/normalizeWord";
@@ -76,33 +76,35 @@ export class GuessPresenter extends Presenter {
         })
     }
 
-    async handlerException(exception: DataException, word?:string): void {
+    async handlerException(exception: DataException, word?: string): void {
         const alertsPresenter = useAlertsPresenter()
+        let title = ''
+        let body = []
         switch (exception.kind) {
             case GuessWordException.DOESNT_EXIST:
-                await alertsPresenter.dispatch(AlertKind.ERROR, {
-                    title: 'A palabra non existe',
-                    body: [
-                        `${word?.toUpperCase()} non existe na RAG.`,
-                        'Recorda que os plurais non son palabas válidas.'
-                    ]
-                })
+                title = 'A palabra non existe'
+                body = [
+                    `${word?.toUpperCase()} non existe na RAG.`,
+                    'Recorda que os plurais non son palabas válidas.'
+                ]
                 break
 
             case GameGuessesException.USED:
-                await alertsPresenter.dispatch(AlertKind.ERROR, {
-                    title: 'Palabra repetida',
-                    body: [
-                        `Xa intentaches a palabra ${word?.toUpperCase()}.`,
-                        'Debes introducir unha palabra distinta.'
-                    ]
-                })
+                title = 'Palabra repetida'
+                body = [
+                    `Xa intentaches a palabra ${word?.toUpperCase()}.`,
+                    'Debes introducir unha palabra distinta.'
+                ]
+                break
+            case GuessWordException.INVALID:
+                title = 'O tamaño da palabra non é válido'
+                body = [`A palabra introducida debe ter ${WORD_LENGTH} letras.`]
                 break
             default:
-                await alertsPresenter.dispatch(AlertKind.ERROR, {
-                    body: [exception.error.message]
-                })
+                body = [exception.error.message]
         }
+
+        await alertsPresenter.dispatch(AlertKind.ERROR, {title, body})
     }
 
 }

@@ -1,6 +1,13 @@
 <script setup lang="ts">
+import AButton from "~/src/lib/ui/atoms/button/a-button.vue"
 
-import AButton from "~/src/lib/ui/atoms/button/a-button.vue";
+interface Props {
+  showCloseButton?: boolean
+}
+
+withDefaults(defineProps<Props>(), {showCloseButton: false})
+
+const emits = defineEmits<{ (evt: 'close') }>()
 </script>
 
 <template>
@@ -11,7 +18,7 @@ import AButton from "~/src/lib/ui/atoms/button/a-button.vue";
         <h2>
           <slot name="title"/>
         </h2>
-        <a-button class="header__close">
+        <a-button class="header__close" :class="{'-hidden': !showCloseButton}" @click="emits('close')">
           <span class="close__icon"/>
         </a-button>
       </div>
@@ -47,6 +54,7 @@ dialog {
   padding: 0;
   z-index: 100;
   width: 95%;
+  max-height: 90dvh;
 }
 
 @media (min-width: 764px) {
@@ -76,7 +84,12 @@ dialog {
 
 .header__close {
   margin-right: calc(calc(var(--s-28px) / 2) * -1);
+
+}
+
+.header__close.-hidden {
   opacity: 0;
+  pointer-events: none;
 }
 
 .close__icon {
