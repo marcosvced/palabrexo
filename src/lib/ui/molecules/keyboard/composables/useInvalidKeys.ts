@@ -19,8 +19,12 @@ export function useInvalidKeys(props: KeyboardProps) {
         valid.push(letter)
       }
     }
-
-    return useUnique(invalid)
+    return useUnique(invalid).reduce((a, c) => {
+      if (!valid.includes(c)) {
+        a.push(c)
+      }
+      return a
+    }, [])
   })
 
   return {

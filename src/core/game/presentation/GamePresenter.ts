@@ -23,7 +23,7 @@ export class GamePresenter extends Presenter {
       const start = async () => {
         try {
           state.value = await this.startGameUseCase.execute()
-          this.logger.info('GamePresenter', { wordToGuess: state.value.wordToGuess })
+          this.logger.info('GamePresenter.Start()', { wordToGuess: state.value.wordToGuess })
         }
         catch (e) {
           throw UnexpectedException()

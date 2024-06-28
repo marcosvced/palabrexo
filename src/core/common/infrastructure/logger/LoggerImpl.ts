@@ -12,8 +12,8 @@ export class LoggerImpl implements Pick<Logger, 'info' | 'error'> {
     }
   }
 
-  error(message: Error, data?: object): void {
-    LogRocket.captureException(message, data)
+  error(message: string | Error, data?: object): void {
+    LogRocket.captureException(message as Error, data)
   }
 
   info(message: string, data?: object): void {
