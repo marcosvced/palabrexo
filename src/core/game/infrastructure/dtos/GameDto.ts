@@ -1,4 +1,3 @@
-export type GameDto = {
-    word: string,
+export interface GameDto {
+  word: string
 }
-

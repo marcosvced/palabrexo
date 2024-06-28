@@ -1,16 +1,14 @@
 <script setup lang="ts">
-import {useAlertsPresenter} from "~/src/lib/composables/common/useAlertsPresenter";
-import MAlert from "~/src/lib/ui/molecules/alert/m-alert.vue";
+import { useAlertsPresenter } from '~/src/lib/composables/common/useAlertsPresenter'
+import MAlert from '~/src/lib/ui/molecules/alert/m-alert.vue'
 
-const {state} = storeToRefs(useAlertsPresenter())
-
-
+const { state } = storeToRefs(useAlertsPresenter())
 </script>
 
 <template>
   <teleport to="body">
     <transition-group name="in-out" tag="div" class="m-snackbar">
-      <m-alert class="snackbar__alert" v-for="alert in state" :alert="alert" :key="alert.id"/>
+      <MAlert v-for="alert in state" :key="alert.id" class="snackbar__alert" :alert="alert" />
     </transition-group>
   </teleport>
 </template>
@@ -25,9 +23,7 @@ const {state} = storeToRefs(useAlertsPresenter())
   flex-direction: column;
   gap: var(--s-16px);
   z-index: var(--stk-toast);
-  height: 100%;
 }
-
 
 .in-out-enter-active,
 .in-out-leave-active {
@@ -39,6 +35,4 @@ const {state} = storeToRefs(useAlertsPresenter())
   opacity: 0;
   transform: translateX(30px);
 }
-
-
 </style>

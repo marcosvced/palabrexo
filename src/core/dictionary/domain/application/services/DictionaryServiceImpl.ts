@@ -1,10 +1,8 @@
-import type {DictionaryService} from "~/src/core/dictionary/domain/application/services/DictionaryService";
-import {Dictionary} from "~/src/core/dictionary/domain/entities/Dictionary";
+import type { DictionaryService } from '~/src/core/dictionary/domain/application/services/DictionaryService'
+import type { Dictionary } from '~/src/core/dictionary/domain/entities/Dictionary'
 
 export class DictionaryServiceImpl implements DictionaryService {
-
-  constructor(private readonly dictionary:Dictionary) {}
-
+  constructor(private readonly dictionary: Dictionary) {}
 
   getAlphabet(): string[] {
     return this.dictionary.alphabet

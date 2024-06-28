@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import MDialog from "~/src/lib/ui/molecules/dialog/m-dialog.vue";
-import {GameStatus} from "~/src/core/game/domain/entities/GameStatus";
-import type {DictionaryDefinition} from "~/src/core/dictionary/domain/entities/DictionaryDefinition";
-import AButton from "~/src/lib/ui/atoms/button/a-button.vue";
+import MDialog from '~/src/lib/ui/molecules/dialog/m-dialog.vue'
+import { GameStatus } from '~/src/core/game/domain/entities/GameStatus'
+import type { DictionaryDefinition } from '~/src/core/dictionary/domain/entities/DictionaryDefinition'
+import AButton from '~/src/lib/ui/atoms/button/a-button.vue'
 
 withDefaults(defineProps<{ status: GameStatus, definitions: DictionaryDefinition[] }>(), {})
 const emit = defineEmits<{ (evt: 'newGame'): void }>()
 </script>
 
 <template>
-  <m-dialog>
+  <MDialog>
     <template #title>
       <template v-if="status == GameStatus.WON">
         Noraboa!
@@ -19,7 +19,6 @@ const emit = defineEmits<{ (evt: 'newGame'): void }>()
       </template>
     </template>
     <template #body>
-
       <p class="claim">
         <template v-if="status == GameStatus.WON">
           Noraboa, acertaches a palabra oculta.
@@ -30,8 +29,8 @@ const emit = defineEmits<{ (evt: 'newGame'): void }>()
       </p>
       <div class="content">
         <span class="lemma">
-        {{ definitions[0].lemma }}
-      </span>
+          {{ definitions[0].lemma }}
+        </span>
         <ul>
           <li v-for="(entry, index) in definitions" :key="index">
             <span>·</span>
@@ -50,13 +49,13 @@ const emit = defineEmits<{ (evt: 'newGame'): void }>()
           </li>
         </ul>
       </div>
-
     </template>
     <template #footer>
-      <a-button class="footer__button" @click="emit('newGame')">Nova partida</a-button>
+      <AButton class="footer__button" @click="emit('newGame')">
+        Nova partida
+      </AButton>
     </template>
-  </m-dialog>
-
+  </MDialog>
 </template>
 
 <style scoped lang="css">
@@ -75,7 +74,6 @@ span {
   overflow-y: auto;
   height: 100%;
 }
-
 
 .lemma {
   text-transform: uppercase;

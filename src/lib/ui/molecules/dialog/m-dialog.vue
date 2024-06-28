@@ -1,32 +1,32 @@
 <script setup lang="ts">
-import AButton from "~/src/lib/ui/atoms/button/a-button.vue"
+import AButton from '~/src/lib/ui/atoms/button/a-button.vue'
 
 interface Props {
   showCloseButton?: boolean
 }
 
-withDefaults(defineProps<Props>(), {showCloseButton: false})
+withDefaults(defineProps<Props>(), { showCloseButton: false })
 
 const emits = defineEmits<{ (evt: 'close') }>()
 </script>
 
 <template>
   <teleport to="body">
-    <div class="overlay"/>
+    <div class="overlay" />
     <dialog class="m-dialog">
       <div class="m-dialog__header">
         <h2>
-          <slot name="title"/>
+          <slot name="title" />
         </h2>
-        <a-button class="header__close" :class="{'-hidden': !showCloseButton}" @click="emits('close')">
-          <span class="close__icon"/>
-        </a-button>
+        <AButton class="header__close" :class="{ '-hidden': !showCloseButton }" @click="emits('close')">
+          <span class="close__icon" />
+        </AButton>
       </div>
       <div class="m-dialog__content">
-        <slot name="body"/>
+        <slot name="body" />
       </div>
       <div class="m-dialog__footer">
-        <slot name="footer"/>
+        <slot name="footer" />
       </div>
     </dialog>
   </teleport>
@@ -108,5 +108,7 @@ h2 {
 .m-dialog__footer {
   padding-inline: var(--s-28px);
   padding-bottom: var(--s-28px);
+  display: flex;
+  gap: var(--s-16px);
 }
 </style>

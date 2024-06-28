@@ -1,5 +1,5 @@
 export interface Mapper<M, D> {
-    toDomain(dto: D): M
+  toDomain: (dto: D) => M
 
-    toApi(model: M): D
+  toApi: (model: M) => D
 }

@@ -1,15 +1,15 @@
-export const  SPECIAL_KEYS = {
+export const SPECIAL_KEYS = {
   ENTER: 'Enter',
-  DELETE: 'Backspace'
+  DELETE: 'Backspace',
 }
 
 export const SpecialKeys = [
   {
     value: 'delete',
-    code: SPECIAL_KEYS.DELETE
+    code: SPECIAL_KEYS.DELETE,
   },
   {
     value: 'enter',
-    code: SPECIAL_KEYS.ENTER
+    code: SPECIAL_KEYS.ENTER,
   },
 ]

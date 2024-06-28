@@ -4,7 +4,7 @@
 
 <template>
   <button type="button" class="a-button">
-    <slot/>
+    <slot />
   </button>
 </template>
 
@@ -32,7 +32,6 @@ button {
 
   transition: background-color  0.2s ease-in-out, color 0.2s ease-in-out;
 }
-
 
 button:hover {
   background-color: var(--c-shade-100);
