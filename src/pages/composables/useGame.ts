@@ -6,7 +6,8 @@ import type { Game } from '~/src/core/game/domain/entities/GameModel'
 export interface UseGame {
   game: Ref<Game | undefined>
   isGameFinished: ComputedRef<boolean>
-  restart: Promise<void>
+  restart: () => Promise<any>
+  finish: () => Promise<any>
 }
 
 export async function useGame(): Promise<UseGame> {
@@ -19,5 +20,6 @@ export async function useGame(): Promise<UseGame> {
     game,
     isGameFinished,
     restart: async () => await gamePresenter.restart(),
+    finish: () => gamePresenter.finish(),
   }
 }

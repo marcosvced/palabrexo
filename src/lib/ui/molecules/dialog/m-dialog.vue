@@ -108,5 +108,7 @@ h2 {
 .m-dialog__footer {
   padding-inline: var(--s-28px);
   padding-bottom: var(--s-28px);
+  display: flex;
+  gap: var(--s-16px);
 }
 </style>

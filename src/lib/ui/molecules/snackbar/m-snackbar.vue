@@ -23,7 +23,6 @@ const { state } = storeToRefs(useAlertsPresenter())
   flex-direction: column;
   gap: var(--s-16px);
   z-index: var(--stk-toast);
-  height: 100%;
 }
 
 .in-out-enter-active,

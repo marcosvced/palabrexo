@@ -19,10 +19,10 @@ import { GuessLetterResult } from '~/src/core/guess/domain/entities/GuessLetterR
         </span>
         <span class="line">
           <ATile :result="GuessLetterResult.VALID" letter="N" />
-          <ATile result="0" letter="E" />
-          <ATile result="0" letter="B" />
-          <ATile result="0" letter="O" />
-          <ATile result="0" letter="A" />
+          <ATile :result="GuessLetterResult.INVALID" letter="E" />
+          <ATile :result="GuessLetterResult.INVALID" letter="B" />
+          <ATile :result="GuessLetterResult.INVALID" letter="O" />
+          <ATile :result="GuessLetterResult.INVALID" letter="A" />
         </span>
       </p>
       <p>
@@ -31,10 +31,10 @@ import { GuessLetterResult } from '~/src/core/guess/domain/entities/GuessLetterR
         </span>
         <span class="line">
           <ATile :result="GuessLetterResult.INVALID_PLACE" letter="N" />
-          <ATile result="0" letter="E" />
-          <ATile result="0" letter="B" />
-          <ATile result="0" letter="O" />
-          <ATile result="0" letter="A" />
+          <ATile :result="GuessLetterResult.INVALID" letter="E" />
+          <ATile :result="GuessLetterResult.INVALID" letter="B" />
+          <ATile :result="GuessLetterResult.INVALID" letter="O" />
+          <ATile :result="GuessLetterResult.INVALID" letter="A" />
         </span>
       </p>
       <p>
@@ -43,10 +43,10 @@ import { GuessLetterResult } from '~/src/core/guess/domain/entities/GuessLetterR
         </span>
         <span class="line">
           <ATile :result="GuessLetterResult.INVALID" letter="N" />
-          <ATile result="0" letter="E" />
-          <ATile result="0" letter="B" />
-          <ATile result="0" letter="O" />
-          <ATile result="0" letter="A" />
+          <ATile :result="GuessLetterResult.INVALID" letter="E" />
+          <ATile :result="GuessLetterResult.INVALID" letter="B" />
+          <ATile :result="GuessLetterResult.INVALID" letter="O" />
+          <ATile :result="GuessLetterResult.INVALID" letter="A" />
         </span>
       </p>
     </template>

@@ -53,12 +53,17 @@ export class GamePresenter extends Presenter {
         state.value = new Game(newState)
       }
 
+      const finish = () => {
+        setStatus(GameStatus.FINISHED)
+      }
+
       return {
         state,
         start,
         restart,
         setGuesses,
         setStatus,
+        finish,
       }
     })
   }

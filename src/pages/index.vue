@@ -10,14 +10,16 @@ import { useSetupKeyboard } from '~/src/lib/composables/common/useSetupKeyboard'
 import MSnackbar from '~/src/lib/ui/molecules/snackbar/m-snackbar.vue'
 import AButton from '~/src/lib/ui/atoms/button/a-button.vue'
 import InfoGameDialog from '~/src/pages/components/info-game-dialog.vue'
+import OnConfirmFinish from '~/src/pages/components/on-confirm-finish.vue'
 
-const { game, restart, isGameFinished } = await useGame()
+const { game, restart, finish, isGameFinished } = await useGame()
 const { definitions } = await useDefinitions(game)
 const { guess } = useGuess()
 
 useSetupKeyboard()
 
 const isGameInfoDialogOpen = ref(false)
+const isConfirmFinishDialogOpen = ref(false)
 
 onMounted(() =>
   onGameInfoDialogToggle(),
@@ -26,13 +28,27 @@ onMounted(() =>
 function onGameInfoDialogToggle() {
   isGameInfoDialogOpen.value = !isGameInfoDialogOpen.value
 }
+
+function onConfirmDialogToggle() {
+  isConfirmFinishDialogOpen.value = !isConfirmFinishDialogOpen.value
+}
+
+function onForceFinishGame() {
+  onConfirmDialogToggle()
+  finish()
+}
 </script>
 
 <template>
   <main class="main">
-    <AButton class="main__btn-info" @click="onGameInfoDialogToggle">
-      ?
-    </AButton>
+    <div class="main__actions">
+      <AButton @click="onConfirmDialogToggle">
+        X
+      </AButton>
+      <AButton class="main__btn-info" @click="onGameInfoDialogToggle">
+        ?
+      </AButton>
+    </div>
     <div class="container">
       <MBoard
         :board="{
@@ -52,6 +68,11 @@ function onGameInfoDialogToggle() {
       :status="game?.status ?? GameStatus.FINISHED"
       :definitions="definitions ?? []"
       @new-game="async () => await restart()"
+    />
+    <OnConfirmFinish
+      v-if="isConfirmFinishDialogOpen"
+      @continue="onConfirmDialogToggle"
+      @finish="onForceFinishGame"
     />
     <MSnackbar />
   </main>
@@ -80,9 +101,12 @@ function onGameInfoDialogToggle() {
   justify-content: center;
 }
 
-.main__btn-info {
+.main__actions {
   position: absolute;
   top: var(--s-16px);
   right: var(--s-16px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-8px);
 }
 </style>
