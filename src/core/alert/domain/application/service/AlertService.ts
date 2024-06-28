@@ -1,7 +1,5 @@
-import {Alert, type AlertModel} from "~/src/core/alert/domain/entities/AlertModel";
-import {AlertKind} from "~/src/core/alert/domain/entities/AlertKind";
-
+import type { Alert, type AlertModel } from '~/src/core/alert/domain/entities/AlertModel'
 
 export interface AlertService {
-    create(payload?: Partial<AlertModel>): Alert
+  create: (payload?: Partial<AlertModel>) => Alert
 }

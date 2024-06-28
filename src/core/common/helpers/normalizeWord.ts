@@ -4,7 +4,7 @@ export function normalizeWord(string: string): string {
       .toLowerCase()
       .normalize('NFD')
       // Remove all diacritic, except the tilde from ñ
-      .replace(/(?![\u0303])[\u0300-\u036f]/g, '')
+      .replace(/(?!\u0303)[\u0300-\u036F]/g, '')
       .normalize('NFC')
   )
 }

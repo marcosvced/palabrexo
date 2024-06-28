@@ -1,4 +1,4 @@
 export enum GameBoard {
-    COLUMNS = 5,
-    ROWS = 6
+  COLUMNS = 5,
+  ROWS = 6,
 }

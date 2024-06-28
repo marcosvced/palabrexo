@@ -1,5 +1,5 @@
-import type {DictionaryDefinition} from "~/src/core/dictionary/domain/entities/DictionaryDefinition";
+import type { DictionaryDefinition } from '~/src/core/dictionary/domain/entities/DictionaryDefinition'
 
 export interface DictionaryRepository {
-    search(word: string): Promise<DictionaryDefinition[]>
+  search: (word: string) => Promise<DictionaryDefinition[]>
 }

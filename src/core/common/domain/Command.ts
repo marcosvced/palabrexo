@@ -1,3 +1,3 @@
 export interface Command {
-  execute(args?:any): Promise<any>;
+  execute: (args?: any) => Promise<any>
 }

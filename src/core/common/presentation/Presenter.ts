@@ -1,16 +1,21 @@
-import type {DataException} from "~/src/core/common/domain/entities/DataException";
+import type { Logger } from '~/src/core/common/infrastructure/logger/Logger'
+import { Dependencies, LocatorDependencies } from '~/src/core/common/infrastructure/dependencies/LocatorDependencies'
 
 export abstract class Presenter {
-    private _store: any = undefined
+  private _store: any = undefined
+  private _logger: Logger = LocatorDependencies.get(Dependencies.LOGGER)
 
-    set store(store: any) {
-        this._store = store
-    }
+  get logger(): Logger {
+    return this._logger
+  }
 
-    get store() {
-        return this._store()
-    }
+  set store(store: any) {
+    this._store = store
+  }
 
-    abstract defineStore: (key: string) => any
-    abstract handlerException?: (exception: DataException) => void
+  get store() {
+    return this._store()
+  }
+
+  abstract defineStore(key: string): any
 }

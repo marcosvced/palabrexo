@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import type {AlertModel} from "~/src/core/alert/domain/entities/AlertModel";
+import type { AlertModel } from '~/src/core/alert/domain/entities/AlertModel'
 
 withDefaults(defineProps<{ alert: AlertModel }>(), {})
 </script>
 
 <template>
   <div class="m-alert">
-<!--    <span class="alert__icon"> {{ alert.icon }} </span>-->
-    <h2 class="alert__title"> {{ alert.title }} </h2>
+    <!--    <span class="alert__icon"> {{ alert.icon }} </span> -->
+    <h2 class="alert__title">
+      {{ alert.title }}
+    </h2>
     <div class="alert__body">
       <p v-for="paragraph in alert.body">
         {{ paragraph }}

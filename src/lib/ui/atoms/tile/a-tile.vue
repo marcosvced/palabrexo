@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {GuessLetterResult} from "~/src/core/guess/domain/entities/GuessLetterResult";
+import { GuessLetterResult } from '~/src/core/guess/domain/entities/GuessLetterResult'
 
 interface Props {
   letter: string
@@ -7,23 +7,21 @@ interface Props {
   disabled?: boolean
 }
 
-const props: Props = withDefaults(defineProps<Props>(), {disabled: false})
+const props: Props = withDefaults(defineProps<Props>(), { disabled: false })
 
 const setTileCssClass: ComputedRef<Record<string, boolean>> = computed((): Record<string, boolean> => ({
   'has-letter': !!props.letter,
   'reveled reveled-invalid': props.result == GuessLetterResult.INVALID,
   'reveled reveled-invalid-place': props.result == GuessLetterResult.INVALID_PLACE,
   'reveled reveled-valid': props.result == GuessLetterResult.VALID,
-  'is-disabled': !!props.disabled
+  'is-disabled': !!props.disabled,
 }))
-
 </script>
 
 <template>
   <li class="a-tile" :class="setTileCssClass">
     {{ letter }}
   </li>
-
 </template>
 
 <style scoped>
@@ -76,5 +74,4 @@ li:not(.reveled) {
     transform: scale(1.15);
   }
 }
-
 </style>

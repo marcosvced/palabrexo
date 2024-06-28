@@ -1,3 +1,3 @@
-export function useCompact(arr: any[]):any[] {
-    return arr.filter((item) => !!item)
+export function useCompact(arr: any[]): any[] {
+  return arr.filter(item => !!item)
 }

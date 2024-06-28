@@ -1,18 +1,18 @@
-import type {DataException} from "~/src/core/common/domain/entities/DataException";
+import type { DataException } from '~/src/core/common/domain/entities/DataException'
 
 export type GameId = string
 
 export enum GameIdException {
-    UNDEFINED = 'GuessWordIsNotValidException'
+  UNDEFINED = 'GuessWordIsNotValidException',
 }
 
 export function isGameIdDefined(id?: GameId) {
-    return !!id
+  return !!id
 }
 
 export function GameIdIsNotDefinedException(): DataException {
-    return {
-        kind: GameIdException.UNDEFINED,
-        error: Error('🚨 The game isn\'t started.')
-    }
+  return {
+    kind: GameIdException.UNDEFINED,
+    error: new Error('🚨 The game isn\'t started.'),
+  }
 }
