@@ -5,7 +5,7 @@ import { Guess } from '~/src/core/guess/domain/entities/GuessModel'
 import { DictionaryDefinition } from '~/src/core/dictionary/domain/entities/DictionaryDefinition'
 import { SerializerDependencies } from '~/src/core/common/infrastructure/dependencies/SerializerDependencies'
 
-export default defineNuxtPlugin(() => {
+export default definePayloadPlugin(() => {
   if (import.meta.client) {
     SerializerDependencies.Game = Game
     SerializerDependencies.Guess = Guess
