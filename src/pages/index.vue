@@ -17,7 +17,7 @@ import { useLog } from '~/src/lib/composables/common/useLog'
 
 const { game, restart, finish, isGameFinished } = await useGame()
 const { definitions } = await useDefinitions(game as Ref<Game>)
-const { guess } = useGuess()
+const { guess, restart: clear } = useGuess()
 const { logger } = useLog()
 useSetupKeyboard()
 
@@ -35,6 +35,11 @@ function onGameInfoDialogToggle() {
 
 function onConfirmDialogToggle() {
   isConfirmFinishDialogOpen.value = !isConfirmFinishDialogOpen.value
+}
+
+async function onNewGame() {
+  clear()
+  await restart()
 }
 
 function onForceFinishGame() {
@@ -71,7 +76,7 @@ function onForceFinishGame() {
       v-if="isGameFinished"
       :status="game?.status ?? GameStatus.FINISHED"
       :definitions="definitions ?? []"
-      @new-game="async () => await restart()"
+      @new-game="onNewGame"
     />
     <OnConfirmFinish
       v-if="isConfirmFinishDialogOpen"
