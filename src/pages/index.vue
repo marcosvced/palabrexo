@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import type { Ref } from 'vue'
 import MBoard from '~/src/lib/ui/molecules/board/m-board.vue'
 import MKeyboard from '~/src/lib/ui/molecules/keyboard/m-keyboard.vue'
 import { GameStatus } from '~/src/core/game/domain/entities/GameStatus'
@@ -11,19 +12,22 @@ import MSnackbar from '~/src/lib/ui/molecules/snackbar/m-snackbar.vue'
 import AButton from '~/src/lib/ui/atoms/button/a-button.vue'
 import InfoGameDialog from '~/src/pages/components/info-game-dialog.vue'
 import OnConfirmFinish from '~/src/pages/components/on-confirm-finish.vue'
+import type { Game } from '~/src/core/game/domain/entities/GameModel'
+import { useLog } from '~/src/lib/composables/common/useLog'
 
 const { game, restart, finish, isGameFinished } = await useGame()
-const { definitions } = await useDefinitions(game)
+const { definitions } = await useDefinitions(game as Ref<Game>)
 const { guess } = useGuess()
-
+const { logger } = useLog()
 useSetupKeyboard()
 
 const isGameInfoDialogOpen = ref(false)
 const isConfirmFinishDialogOpen = ref(false)
 
-onMounted(() =>
-  onGameInfoDialogToggle(),
-)
+onMounted(() => {
+  onGameInfoDialogToggle()
+  logger.info('onGameMounted', { wordToGuess: game.value?.wordToGuess })
+})
 
 function onGameInfoDialogToggle() {
   isGameInfoDialogOpen.value = !isGameInfoDialogOpen.value

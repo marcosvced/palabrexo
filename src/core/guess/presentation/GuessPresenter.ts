@@ -38,7 +38,7 @@ export class GuessPresenter extends Presenter implements HandlerException {
           return
         }
 
-        this.logger.info('GuessPresenter', { word: state.value?.word })
+        this.logger.info('GuessPresenter.Submit()', { word: state.value?.word })
 
         try {
           state.value.ensureGuessIsValid()
@@ -101,6 +101,7 @@ export class GuessPresenter extends Presenter implements HandlerException {
         break
       default:
         body = [exception.error.message]
+        this.logger.error(exception.error, { word })
     }
 
     await alertsPresenter.dispatch(AlertKind.ERROR, { title, body })
