@@ -17,13 +17,7 @@ export class DictionaryDefinition implements DictionaryDefinitionModel {
   partOfSpeech: string
   synonym: string
 
-  constructor({
-    definition,
-                    example,
-                    lemma,
-                    partOfSpeech,
-                    synonym,
-  }: DictionaryDefinitionModel) {
+  constructor({ definition, example, lemma, partOfSpeech, synonym }: DictionaryDefinitionModel) {
     this.definition = definition
     this.example = example
     this.lemma = lemma
