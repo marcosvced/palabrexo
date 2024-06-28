@@ -12,7 +12,7 @@ import { GuessLetterResult } from '~/src/core/guess/domain/entities/GuessLetterR
     </template>
     <template #body>
       <h4>Trate de adiviñar a palabra oculta en {{ GameBoard.ROWS }} intentos</h4>
-      <p>A medida que avances na partida, as fichar iranche dando pistas sobre o cerca que estás da palabra secreta.</p>
+      <p>A medida que avances na partida, as fichas iranche dando pistas do preto que estás da palabra secreta.</p>
       <p>
         <span>
           A letra N está na posición correcta
